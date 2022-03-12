@@ -1,19 +1,33 @@
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
+import 'package:flame/flame.dart';
+import 'package:layout/jump_game.dart';
 
-class PlayerComponent extends SpriteComponent with HasGameRef {
+class PlayerComponent extends SpriteAnimationComponent with HasGameRef<JumpGame> {
+  SpriteAnimationComponent peepAnimation = SpriteAnimationComponent();
   static Vector2 gravity = Vector2(0, 600);
   Vector2 velocity = Vector2.zero();
   bool isJumping = false;
   double ground = 0.0;
+  late SpriteAnimationComponent player;
+
+
 
   @override
   Future<void>? onLoad() async{
     await super.onLoad();
+    var spriteSheet = await Flame.images.load('peep8.png');
+    SpriteAnimationData data = SpriteAnimationData.sequenced(amount: 3, stepTime: 0.1, textureSize: Vector2(256,256));
     ground = gameRef.size.y - 56;
     anchor = Anchor.center;
-    position = Vector2(gameRef.size.x / 8, ground);
-    sprite = await gameRef.loadSprite('peep2_3.png');
+    animation = SpriteAnimation.fromFrameData(spriteSheet, data);
+    playing = true;
+    size = Vector2(64, 64);
+    position = Vector2(gameRef.canvasSize.x / 8, ground);
+
   }
+
+
 
   @override
   void update(double dt) {

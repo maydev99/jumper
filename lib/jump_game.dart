@@ -5,20 +5,18 @@ import 'package:layout/player.dart';
 class JumpGame extends FlameGame with TapDetector {
   late final PlayerComponent player;
 
-  @override
-  Future<void>? onLoad() async{
-    await super.onLoad();
+  //late final PeepAnimation peepAnimation;
 
-    add(
-      player = PlayerComponent()
-        ..width = 100
-        ..height = 100,
-    );
+  @override
+  Future<void>? onLoad() async {
+    await super.onLoad();
+    player = PlayerComponent();
+
+    add(player);
   }
 
   @override
   void onTapDown(TapDownInfo info) {
     player.jump();
   }
-
 }
