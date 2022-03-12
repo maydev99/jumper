@@ -22,7 +22,7 @@ class PlayerComponent extends SpriteAnimationComponent with HasGameRef<JumpGame>
     anchor = Anchor.center;
     animation = SpriteAnimation.fromFrameData(spriteSheet, data);
     playing = true;
-    size = Vector2(64, 64);
+    size = Vector2(128, 128);
     position = Vector2(gameRef.canvasSize.x / 8, ground);
 
   }
